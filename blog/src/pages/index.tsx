@@ -4,18 +4,17 @@ import GlobalStyle from 'components/Common/GlobalStyle'
 import Footer from 'components/Common/Footer'
 import CategoryList from 'components/Main/CategoryList'
 import Introduction from 'components/Main/Introduction'
-import PostList, { PostType } from 'components/Main/PostList'
+import PostList from 'components/Main/PostList'
+import { PostListItemType } from 'types/PostItem.types'
 import { graphql } from 'gatsby'
 
 type IndexPageProps = {
   data: {
     allMarkdownRemark: {
-      edges: PostType[]
+      edges: PostListItemType[]
     }
   }
 }
-
-
 const CATEGORY_LIST = {
   All: 5,
   Web: 3,
@@ -29,33 +28,20 @@ const Container = styled.div`
 `
 
 const IndexPage: FunctionComponent<IndexPageProps> = function ({
-
-  const IndexPage: FunctionComponent<IndexPageProps> = function ({
-    data: {
-      allMarkdownRemark: { edges },
-    },
-  }) {
-    return (
-      <Container>
-        <GlobalStyle />
-        <Introduction />
-        <CategoryList selectedCategory="Web" categoryList={CATEGORY_LIST} />
-        <PostList posts={edges} />
-        <Footer />
-      </Container>
-    )
-  }
-  
-import { PostListItemType } from 'types/PostItem.types'
-
-type IndexPageProps = {
   data: {
-    allMarkdownRemark: {
-      edges: PostListItemType[]
-    }
-  }
+    allMarkdownRemark: { edges },
+  },
+}) {
+  return (
+    <Container>
+      <GlobalStyle />
+      <Introduction />
+      <CategoryList selectedCategory="Web" categoryList={CATEGORY_LIST} />
+      <PostList posts={edges} />
+      <Footer />
+    </Container>
+  )
 }
-
 
 export default IndexPage
 
@@ -74,7 +60,7 @@ export const getPostList = graphql`
             categories
             thumbnail {
               childImageSharp {
-                gatsbyImageData(width: 768, height: 400)
+                gatsbyImageData
               }
             }
           }
