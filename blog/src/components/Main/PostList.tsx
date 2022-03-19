@@ -21,7 +21,7 @@ const PostListWrapper = styled.div`
   }
 `
 
-const PostList: FunctionComponent<PostListProps> = function ({ posts }) {
+/*const PostList: FunctionComponent<PostListProps> = function ({ posts }) {
   return (
     <PostListWrapper>
       {posts.map(({ node: { id, frontmatter } }: PostListItemType) => (
@@ -30,4 +30,26 @@ const PostList: FunctionComponent<PostListProps> = function ({ posts }) {
     </PostListWrapper>
   )
 }
+export default PostList*/
+
+const PostList: FunctionComponent<PostListProps> = function ({ posts }) {
+
+  return (
+    <PostListWrapper>
+      {posts.map(
+        ({
+          node: {
+            id,
+            fields: { slug },
+            frontmatter,
+          },
+        }: PostListItemType) => (
+          <PostItem {...frontmatter} link={slug} key={id} />
+        ),
+      )}
+    </PostListWrapper>
+  )
+}
+
 export default PostList
+
